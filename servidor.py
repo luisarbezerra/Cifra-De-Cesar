@@ -1,20 +1,22 @@
 import socket
 
-HOST = '' # Endereco IP do Servidor
-PORT = 5000 # Porta que o Servidor esta
-tcp  = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-orig = (HOST, PORT)
+HOST   = '' # Endereco IP do Servidor
+PORT   = 5000 # Porta que o Servidor esta
+tcp    = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+origem = (HOST, PORT)
 
-tcp.bind(orig)
+tcp.bind(origem)
 tcp.listen(1)
-con, cliente = tcp.accept()
+print('\nServidor TCP iniciado no IP', HOST, 'na porta', PORT)
+
+conexao, cliente = tcp.accept()
 print('Conectado por', cliente)
 
 while True:
-    msg = con.recv(1024)
-    if not msg: break
-    msg = '>' + msg + '<'
+    mensagem = conexao.recv(1024)
+    if not mensagem: 
+        break
+    msg = mensagem.decode()
     print(cliente, msg)
-    con.send(msg)
 print('Finalizando conexao do cliente', cliente)
-con.close()
+conexao.close()
