@@ -15,8 +15,8 @@ print('Para sair use CTRL+X\n')
 msg = input()
 
 while msg != '\x18':
-    tcp.sendto(str(msg).encode('utf-8'), (HOST, PORT))
-    msg = tcp.recv(1024)
+    tcp.send(msg.encode('latin1'))
+    msg = tcp.recv(1024).decode('latin1')
     print(msg)
     msg = input()
 
